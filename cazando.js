@@ -7,6 +7,8 @@ let gatoY = canvas.height / 2 - 50 / 2;
 let comidaX = 0;
 let comidaY = 0;
 
+let puntos = 0;
+
 const ALTO_GATO = 50;
 const ANCHO_GATO = 80;
 
@@ -39,10 +41,18 @@ function detectarColision() {
         gatoY < comidaY + ALTO_COMIDA &&
         gatoY + ALTO_GATO > comidaY
     ) {
-        alert("ÑAM ÑAM DELICIOUS");
+        puntos = puntos + 1;
+        
+        mostrarEnSpan("puntos", puntos);
+
+        comidaX = generarAleatorio(0, canvas.width - ANCHO_COMIDA);
+        comidaY = generarAleatorio(0, canvas.height - ALTO_COMIDA);
+
+        limpiarCanva();
+        graficarGato();
+        graficarComida();
     }
 }
-
 function moverIzquierda() {
     gatoX = gatoX - 10;
     limpiarCanva();     
