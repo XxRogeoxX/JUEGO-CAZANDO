@@ -1,8 +1,8 @@
 let canvas=document.getElementById("areaJuego");
 let ctx=canvas.getContext("2d");
 
-let gatoX = 0;
-let gatoY = 0;
+let gatoX = canvas.width / 2 - 80 / 2;
+let gatoY = canvas.height / 2 - 50 / 2;
 
 let comidaX = 0;
 let comidaY = 0;
@@ -13,8 +13,6 @@ const ANCHO_GATO = 80;
 const ALTO_COMIDA = 25;
 const ANCHO_COMIDA = 25;
 
-const ANCHO = canvas.width / 2 - ANCHO_GATO / 2;
-const ALTO = canvas.height / 2 - ALTO_GATO / 2;
 
 function graficarRectangulo(x,y,ancho,alto,color){
     ctx.fillStyle = color
@@ -34,17 +32,30 @@ function limpiarCanva() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
+function detectarColision() {
+    if (
+        gatoX < comidaX + ANCHO_COMIDA &&
+        gatoX + ANCHO_GATO > comidaX &&
+        gatoY < comidaY + ALTO_COMIDA &&
+        gatoY + ALTO_GATO > comidaY
+    ) {
+        alert("ÑAM ÑAM DELICIOUS");
+    }
+}
+
 function moverIzquierda() {
     gatoX = gatoX - 10;
     limpiarCanva();     
     graficarGato();   
-    graficarComida();   
+    graficarComida(); 
+    detectarColision();  
 }
 function moverDerecha() {
     gatoX = gatoX + 10;
     limpiarCanva();
     graficarGato();
     graficarComida();
+    detectarColision();
 }
 
 function moverArriba() {
@@ -52,6 +63,7 @@ function moverArriba() {
     limpiarCanva();
     graficarGato();
     graficarComida();
+    detectarColision();
 }
 
 function moverAbajo() {
@@ -59,4 +71,5 @@ function moverAbajo() {
     limpiarCanva();
     graficarGato();
     graficarComida();
+    detectarColision();
 }
