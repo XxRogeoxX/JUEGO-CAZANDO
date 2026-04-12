@@ -11,6 +11,8 @@ let puntos = 0;
 
 let tiempo = 10;
 
+let cronometro;
+
 const ALTO_GATO = 50;
 const ANCHO_GATO = 80;
 
@@ -28,13 +30,28 @@ function graficarGato(){
 function graficarComida(){
     graficarRectangulo(comidaX,comidaY,ANCHO_COMIDA,ALTO_COMIDA,"green");
 }
+function restarTiempo() {
+    tiempo = tiempo - 1;
+    mostrarEnSpan("tiempo", tiempo);
+
+    if (tiempo <= 0) {
+        detenerJuego();
+        alert("GAME OVER");
+        location.reload();
+    }
+}
+
 function iniciarJuego() {
     comidaX = canvas.width - ANCHO_COMIDA;
     comidaY = canvas.height - ALTO_COMIDA;
     graficarGato();
     graficarComida();
-    setInterval(restarTiempo, 1000);
+    cronometro = setInterval(restarTiempo, 1000);
 }
+function detenerJuego() {
+    clearInterval(cronometro);
+}
+
 function limpiarCanva() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
@@ -49,13 +66,18 @@ function detectarColision() {
         puntos = puntos + 1;
 
         mostrarEnSpan("puntos", puntos);
-
-        comidaX = generarAleatorio(0, canvas.width - ANCHO_COMIDA);
-        comidaY = generarAleatorio(0, canvas.height - ALTO_COMIDA);
-
-        limpiarCanva();
-        graficarGato();
-        graficarComida();
+        
+        if (puntos >= 6) {
+            detenerJuego();
+            alert("¡CONGRATULATION");
+            location.reload();
+        } else {
+            comidaX = generarAleatorio(0, canvas.width - ANCHO_COMIDA);
+            comidaY = generarAleatorio(0, canvas.height - ANCHO_COMIDA);
+            limpiarCanva();
+            graficarGato();
+            graficarComida();
+        }
     }
 }
 function moverIzquierda() {
@@ -89,7 +111,7 @@ function moverAbajo() {
     detectarColision();
 }
 
-function restarTiempo() {
-    tiempo = tiempo - 1;
-    mostrarEnSpan("tiempo", tiempo);
+function reiniciarJuego() {
+    detenerJuego();
+    location.reload();
 }
