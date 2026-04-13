@@ -63,9 +63,13 @@ function detectarColision() {
         gatoY < comidaY + ALTO_COMIDA &&
         gatoY + ALTO_GATO > comidaY
     ) {
+        // 1. Ganar 1 punto
         puntos = puntos + 1;
-
         mostrarEnSpan("puntos", puntos);
+
+        // 2. Ganar 10 segundos adicionales
+        tiempo = tiempo + 5;
+        mostrarEnSpan("tiempo", tiempo);
         
         if (puntos >= 6) {
             detenerJuego();
