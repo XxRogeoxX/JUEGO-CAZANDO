@@ -1,42 +1,236 @@
+/* --- CONFIGURACIÓN GENERAL --- */
 body {
   text-align: center;
-  font-family: Arial, sans-serif;
-  background: #f0f0f0;
+  font-family: 'Press Start 2P', cursive;
   margin: 0;
+  padding: 20px;
+  background: radial-gradient(circle at 20% 20%, #ffffff 0%, #d2f0ff 15%, #7fc7ff 45%, #4c97f8 100%);
+  color: #fff;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 180px;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.95) 10%, transparent 10.5%),
+                    radial-gradient(circle, rgba(255,255,255,0.95) 10%, transparent 10.5%);
+  background-size: 120px 120px;
+  background-position: 20px 20px, 80px 80px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.game-shell {
+  position: relative;
+  max-width: 640px;
+  margin: 0 auto;
   padding: 20px;
 }
 
-h1 {
-  margin-bottom: 5px;
+.main-container {
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+  border: 8px solid #f8d13a;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.4);
+  padding: 24px;
+  border-radius: 12px;
+  position: relative;
+  z-index: 1;
 }
 
+/* --- TÍTULOS --- */
+h1 {
+  font-size: 28px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  color: #ffcc00;
+  text-shadow: 4px 4px 0 #000;
+}
+
+.author {
+  font-size: 10px;
+  color: #f8f3c4;
+  margin: 0 0 18px;
+}
+
+/* --- PANEL DE MARCADOR (arriba) --- */
 .panel {
-  margin: 15px 0;
-  font-size: 18px;
   display: flex;
-  justify-content: center;
-  gap: 30px;
+  justify-content: space-between;
+  background: linear-gradient(180deg, #2b1f0e 0%, #4b320c 100%);
+  color: #fff;
+  padding: 14px 18px;
+  border: 4px solid #ffcc00;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,0.12), 4px 4px 0 rgba(0,0,0,0.55);
+  margin-bottom: 18px;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.panel span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.panel span span {
+  display: inline-block;
+  min-width: 48px;
+  padding: 4px 8px;
+  background: #1b1b1b;
+  border: 2px solid #fff;
+  text-align: center;
+}
+
+/* --- ÁREA DE JUEGO (CANVAS) --- */
+.canvas-wrapper {
+  display: inline-block;
+  background: linear-gradient(180deg, #6a4e10 0%, #311f07 100%);
+  padding: 8px;
+  box-shadow: 10px 10px 0 rgba(0,0,0,0.45);
+  border: 8px solid #f8d13a;
+  margin-bottom: 24px;
 }
 
 canvas {
-  background: white;
-  border: 2px solid black;
+  background: #7ad9ff;
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  border: 4px solid #3d5c8f;
 }
 
-.controles {
-  margin-top: 20px;
+/* --- CONTROLES ESTILO D-PAD (MANDO) --- */
+.controles-retro {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
 }
 
+.d-pad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.d-pad-horizontal {
+  display: flex;
+  gap: 6px;
+}
+
+/* --- ESTILO DE BOTONES RETRO --- */
 button {
-  margin: 5px;
-  padding: 10px 16px;
-  font-size: 18px;
+  font-family: 'Press Start 2P', cursive;
+  text-transform: uppercase;
   cursor: pointer;
+  border: 4px solid #000;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.6);
+  transition: all 0.1s ease;
+  color: #fff;
 }
 
-#mensaje {
+/* Botones de movimiento (Gris oscuro estilo mando) */
+.controles-retro button {
+  padding: 15px;
   font-size: 20px;
+  background-color: #202020;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Botón de Reiniciar (Rojo Mario) */
+.action-buttons {
+  margin-top: 26px;
+}
+
+.btn-reset {
+  background-color: #de1b1b;
+  color: white;
+  padding: 16px 28px;
+  font-size: 13px;
+  border-radius: 4px;
+}
+
+/* Efecto de pulsación (baja la sombra) */
+button:hover {
+  filter: brightness(1.1);
+}
+
+button:active {
+  box-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+  transform: translate(3px, 3px);
+}
+
+/* --- MENSAJES DE ESTADO --- */
+#mensaje {
+  font-size: 16px;
   font-weight: bold;
-  color: darkred;
-  margin-top: 15px;
+  color: #ff4f4f; /* Rojo brillante para Game Over */
+  margin-top: 20px;
+  text-shadow: 2px 2px 0 #000;
+  text-transform: uppercase;
+}
+
+.sky-objects {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 12px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cloud {
+  position: absolute;
+  display: flex;
+  gap: 6px;
+  opacity: 0.95;
+}
+
+.cloud span {
+  width: 32px;
+  height: 24px;
+  background: #fff;
+  border: 3px solid #000;
+  border-radius: 8px;
+}
+
+.cloud-1 { left: 20px; top: -6px; }
+.cloud-2 { right: 50px; top: 30px; }
+
+.block-icon {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 50px;
+  height: 50px;
+  background: #f3c300;
+  border: 4px solid #000;
+  border-radius: 6px;
+  color: #000;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: none;
+}
+
+@media (max-width: 640px) {
+  .canvas-wrapper, .panel {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .btn-reset {
+    width: 100%;
+  }
 }

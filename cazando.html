@@ -1,33 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="cazando.css" />
-  <title>Juego Cazando</title>
+  <title>Juego Cazando - Edición Retro</title>
 </head>
 <body onload="iniciarJuego();">
 
-  <h1>Juego Cazando</h1>
-  <p>Autor: Ronald Sánchez </p>
-  <canvas id="areaJuego" width="500" height="500"></canvas>
-  <div class="controles">
-    <button onclick="moverArriba();">⬆</button>
-    <br>
-    <button onclick="moverIzquierda();">⬅</button>
-    <button onclick="moverAbajo();">⬇</button>
-    <button onclick="moverDerecha();">➡</button>
+  <div class="game-shell">
+    <div class="sky-objects">
+      <div class="cloud cloud-1"><span></span><span></span></div>
+      <div class="cloud cloud-2"><span></span><span></span></div>
+      <div class="block-icon">?</div>
+    </div>
+  
+    <div class="main-container">
+      <h1>JUEGO CAZANDO</h1>
+      <p class="author">Autor: Ronald Sánchez</p>
+
+    <div class="panel">
+      <span>PUNTOS:<span id="puntos">0000</span></span>
+      <span>TIEMPO:<span id="tiempo">10</span></span>
+    </div>
+
+    <div class="canvas-wrapper">
+      <canvas id="areaJuego" width="500" height="500"></canvas>
+    </div>
+
+    <div class="controles-retro">
+      <div class="d-pad">
+        <button class="btn-up" onclick="moverArriba();">⬆</button>
+        <div class="d-pad-horizontal">
+          <button class="btn-left" onclick="moverIzquierda();">⬅</button>
+          <button class="btn-down" onclick="moverAbajo();">⬇</button>
+          <button class="btn-right" onclick="moverDerecha();">➡</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn-reset" onclick="reiniciarJuego();">REINICIAR 🔄</button>
+    </div>
+
+    <p id="mensaje"></p>
+    </div>
   </div>
 
-  <div style="margin-top: 20px;">
-    <button onclick="reiniciarJuego();" style="background-color: #ff4444; color: white; padding: 10px;">REINICIAR 🔄</button>
-  </div>
-
-
-  <div class="panel">
-    <span>Puntos: <span id="puntos">0</span></span>
-    <span>Tiempo: <span id="tiempo">10</span></span>
-  </div>
-
-  <p id="mensaje"></p>
   <script src="cazando.js"></script>
   <script src="utils.js"></script>
 

@@ -1,0 +1,1 @@
+quiero que el css y html tengan el diseño de un juego retro tipo mariobros y no quiero ninguna modificacion en los js
