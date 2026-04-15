@@ -1,0 +1,8 @@
+Prompt inicial:
+Agrega imágenes al proyecto. Incorpora un fondo (background), el cual puedes obtener de internet. Crea un nuevo archivo llamado prompt2.txt dentro de la carpeta prompts: incluye el prompt inicial utilizado en esta parte y agrega también todos los prompts adicionales que utilizaste hasta obtener el resultado deseado. Las modificaciones solo son en el CSS y HTML, no quiero modificación en JS.
+
+Prompts adicionales:
+1. Añade imágenes decorativas en el HTML y aplica un fondo externo en CSS sin modificar ningún archivo JS.
+2. Inserta elementos gráficos de estilo retro alrededor del panel y usa una imagen de internet como background principal.
+3. Mantén la estructura del juego actual, conservando los botones y el canvas, solo mejorando el diseño visual en CSS y HTML.
+4. Genera un nuevo prompt2.txt que documente el prompt inicial y los prompts adicionales empleados para esta actualización.
