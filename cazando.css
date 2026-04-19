@@ -5,7 +5,7 @@ body {
   margin: 0;
   padding: 20px;
   background: linear-gradient(180deg, rgba(25, 65, 110, 0.75), rgba(60, 125, 210, 0.65)),
-              url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80') center/cover fixed no-repeat;
+              url('mariokart.jpg') center/cover fixed no-repeat;
   background-blend-mode: overlay;
   color: #fff;
   -webkit-font-smoothing: none;
