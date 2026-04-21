@@ -1,68 +1,70 @@
 let canvas = document.getElementById("areaJuego");
 let ctx = canvas.getContext("2d");
 
-// --- CARGAR IMAGEN DEL GATO ---
+// --- 1. CARGA DE IMÁGENES ---
 const imagenGato = new Image();
-imagenGato.src = 'IMAGEN_GATO.jpg'; // Asegúrate que el nombre coincida exactamente
+imagenGato.src = 'IMAGEN_GATO.jpg'; 
 
+const imagenComida = new Image();
+imagenComida.src = 'COMIDA_GATO.png'; 
+
+// --- 2. CONFIGURACIÓN Y VARIABLES ---
 let gatoX = canvas.width / 2 - 80 / 2;
 let gatoY = canvas.height / 2 - 50 / 2;
 
 let comidaX = 0;
 let comidaY = 0;
+
 let puntos = 0;
 let tiempo = 15;
 let cronometro;
 
 const ALTO_GATO = 50;
 const ANCHO_GATO = 80;
-const ALTO_COMIDA = 25;
-const ANCHO_COMIDA = 25;
 
-function graficarRectangulo(x, y, ancho, alto, color) {
-    ctx.fillStyle = color;
-    ctx.fillRect(x, y, ancho, alto);
-}
+const ALTO_COMIDA = 40; // Ajustado un poco el tamaño para que se vea mejor
+const ANCHO_COMIDA = 40;
 
-// --- FUNCIÓN ACTUALIZADA ---
+// --- 3. FUNCIONES DE DIBUJO ---
 function graficarGato() {
-    // Dibujamos la imagen en lugar del rectángulo azul
     ctx.drawImage(imagenGato, gatoX, gatoY, ANCHO_GATO, ALTO_GATO);
 }
 
 function graficarComida() {
-    graficarRectangulo(comidaX, comidaY, ANCHO_COMIDA, ALTO_COMIDA, "green");
+    ctx.drawImage(imagenComida, comidaX, comidaY, ANCHO_COMIDA, ALTO_COMIDA);
 }
 
-// ... El resto de tus funciones (restarTiempo, iniciarJuego, etc.) se mantienen igual
- 
+function limpiarCanva() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
 
+// --- 4. LÓGICA DEL JUEGO ---
 function restarTiempo() {
     tiempo = tiempo - 1;
     mostrarEnSpan("tiempo", tiempo);
 
     if (tiempo <= 0) {
         detenerJuego();
-        alert("GAME OVER");
+        alert("GAME OVER - Se acabó el tiempo");
         location.reload();
     }
-
-        
 }
 
 function iniciarJuego() {
-    comidaX = canvas.width - ANCHO_COMIDA;
-    comidaY = canvas.height - ALTO_COMIDA;
+    // Posición inicial de la comida
+    comidaX = generarAleatorio(0, canvas.width - ANCHO_COMIDA);
+    comidaY = generarAleatorio(0, canvas.height - ALTO_COMIDA);
+    
+    // Dibujar elementos iniciales
     graficarGato();
     graficarComida();
+    
+    // Iniciar contador
     cronometro = setInterval(restarTiempo, 1000);
 }
+
 function detenerJuego() {
     clearInterval(cronometro);
-}
-
-function limpiarCanva() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function detectarColision() {
@@ -72,68 +74,59 @@ function detectarColision() {
         gatoY < comidaY + ALTO_COMIDA &&
         gatoY + ALTO_GATO > comidaY
     ) {
-        // 1. Ganar 1 punto
+        // Ganar punto
         puntos = puntos + 1;
         mostrarEnSpan("puntos", puntos);
 
-        // 2. reiniciar el tiempo a 15 segundos
+        // Reiniciar tiempo al atrapar comida
         tiempo = 15;
-        mostrarEnSpan("tiempo", tiempo);
-       
-        tiempo = tiempo - 1;
         mostrarEnSpan("tiempo", tiempo);
         
         if (puntos >= 6) {
             detenerJuego();
-            alert("¡CONGRATULATION");
+            alert("¡CONGRATULATIONS! Has alimentado al gato.");
             location.reload();
         } else {
+            // Mover la comida a un lugar nuevo
             comidaX = generarAleatorio(0, canvas.width - ANCHO_COMIDA);
-            comidaY = generarAleatorio(0, canvas.height - ANCHO_COMIDA);
-            limpiarCanva();
-            graficarGato();
-            graficarComida();
+            comidaY = generarAleatorio(0, canvas.height - ALTO_COMIDA);
+            actualizarEscena();
         }
     }
 }
-function moverIzquierda() {
-    gatoX = gatoX - 10;
-    limpiarCanva();     
-    graficarGato();   
-    graficarComida(); 
-    detectarColision();  
-}
-function moverDerecha() {
-    gatoX = gatoX + 10;
+
+// --- 5. MOVIMIENTO Y ACTUALIZACIÓN ---
+function actualizarEscena() {
     limpiarCanva();
     graficarGato();
     graficarComida();
+}
+
+function moverIzquierda() {
+    gatoX = gatoX - 15;
+    actualizarEscena();
+    detectarColision();  
+}
+
+function moverDerecha() {
+    gatoX = gatoX + 15;
+    actualizarEscena();
     detectarColision();
 }
 
 function moverArriba() {
-    gatoY = gatoY - 10;
-    limpiarCanva();
-    graficarGato();
-    graficarComida();
+    gatoY = gatoY - 15;
+    actualizarEscena();
     detectarColision();
 }
 
 function moverAbajo() {
-    gatoY = gatoY + 10; 
-    limpiarCanva();
-    graficarGato();
-    graficarComida();
+    gatoY = gatoY + 15; 
+    actualizarEscena();
     detectarColision();
 }
 
 function reiniciarJuego() {
     detenerJuego();
     location.reload();
-}
-
-function atrapado(){
-    tiempo = 15;
-    detectarColision();
-    return  mostrarEnSpan("tiempo", tiempo);
 }
