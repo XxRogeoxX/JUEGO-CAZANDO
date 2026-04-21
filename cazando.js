@@ -69,7 +69,10 @@ function detectarColision() {
         puntos = puntos + 1;
         mostrarEnSpan("puntos", puntos);
 
-        // 2. Ganar 10 segundos adicionales
+        // 2. reiniciar el tiempo a 15 segundos
+        tiempo = 15;
+        mostrarEnSpan("tiempo", tiempo);
+       
         tiempo = tiempo - 1;
         mostrarEnSpan("tiempo", tiempo);
         
