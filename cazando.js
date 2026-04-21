@@ -39,6 +39,8 @@ function restarTiempo() {
         alert("GAME OVER");
         location.reload();
     }
+
+        
 }
 
 function iniciarJuego() {
@@ -68,7 +70,7 @@ function detectarColision() {
         mostrarEnSpan("puntos", puntos);
 
         // 2. Ganar 10 segundos adicionales
-        tiempo = tiempo + 5;
+        tiempo = tiempo - 1;
         mostrarEnSpan("tiempo", tiempo);
         
         if (puntos >= 6) {
@@ -118,4 +120,10 @@ function moverAbajo() {
 function reiniciarJuego() {
     detenerJuego();
     location.reload();
+}
+
+function atrapado(){
+    tiempo = 15;
+    detectarColision();
+    return  mostrarEnSpan("tiempo", tiempo);
 }
