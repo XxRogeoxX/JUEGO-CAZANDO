@@ -1,35 +1,42 @@
-let canvas=document.getElementById("areaJuego");
-let ctx=canvas.getContext("2d");
+let canvas = document.getElementById("areaJuego");
+let ctx = canvas.getContext("2d");
+
+// --- CARGAR IMAGEN DEL GATO ---
+const imagenGato = new Image();
+imagenGato.src = 'IMAGEN_GATO.jpg'; // Asegúrate que el nombre coincida exactamente
 
 let gatoX = canvas.width / 2 - 80 / 2;
 let gatoY = canvas.height / 2 - 50 / 2;
 
 let comidaX = 0;
 let comidaY = 0;
-
 let puntos = 0;
-
 let tiempo = 15;
-
 let cronometro;
 
 const ALTO_GATO = 50;
 const ANCHO_GATO = 80;
-
 const ALTO_COMIDA = 25;
 const ANCHO_COMIDA = 25;
 
+function graficarRectangulo(x, y, ancho, alto, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, ancho, alto);
+}
 
-function graficarRectangulo(x,y,ancho,alto,color){
-    ctx.fillStyle = color
-    ctx.fillRect(x,y,ancho,alto)
+// --- FUNCIÓN ACTUALIZADA ---
+function graficarGato() {
+    // Dibujamos la imagen en lugar del rectángulo azul
+    ctx.drawImage(imagenGato, gatoX, gatoY, ANCHO_GATO, ALTO_GATO);
 }
-function graficarGato(){
-    graficarRectangulo(gatoX,gatoY,ANCHO_GATO,ALTO_GATO,"blue");
+
+function graficarComida() {
+    graficarRectangulo(comidaX, comidaY, ANCHO_COMIDA, ALTO_COMIDA, "green");
 }
-function graficarComida(){
-    graficarRectangulo(comidaX,comidaY,ANCHO_COMIDA,ALTO_COMIDA,"green");
-}
+
+// ... El resto de tus funciones (restarTiempo, iniciarJuego, etc.) se mantienen igual
+ 
+
 function restarTiempo() {
     tiempo = tiempo - 1;
     mostrarEnSpan("tiempo", tiempo);
